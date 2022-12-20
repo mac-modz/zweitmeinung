@@ -109,9 +109,16 @@ window.addEventListener('DOMContentLoaded', function() {
 			card.querySelector('#physician-name').innerText = doc.name;
 			card.querySelector('#physician-fee').innerText = doc.price.amount + '/h';
 			card.querySelector('#physician-specialty').innerText = doc.categories[0].name;
-			console.log('>>>',  doc, doc.managing_user.practitioner.image)
-			//let imgDoc = document.createElement("img")
-			//imgDoc.src = doc.managing_user.practitioner.image
+			
+			console.log('>>>',  doc)
+			
+			if(doc && doc.managing_user && doc.managing_user.practitioner) {
+				card.querySelector('.image-cover').src = doc.managing_user.practitioner.image;
+			} else {
+			    	card.querySelector('.image-cover').src =
+					'https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80'
+			}
+			   
 			card.querySelector('.image-cover').src = doc.managing_user.practitioner.image;
 			doc.slots =
 				_.chain(doc.slots)
