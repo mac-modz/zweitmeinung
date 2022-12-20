@@ -109,10 +109,10 @@ window.addEventListener('DOMContentLoaded', function() {
 			card.querySelector('#physician-name').innerText = doc.name;
 			card.querySelector('#physician-fee').innerText = doc.price.amount + '/h';
 			card.querySelector('#physician-specialty').innerText = doc.categories[0].name;
-			
-			let imgDoc = document.createElement("img")
-			imgDoc.src = doc.managing_user.practitioner.image
-			card.querySelector('.image-cover').appendChild(imgDoc);
+			console.log('>>>',  doc, doc.managing_user.practitioner.image)
+			//let imgDoc = document.createElement("img")
+			//imgDoc.src = doc.managing_user.practitioner.image
+			card.querySelector('.image-cover').src = doc.managing_user.practitioner.image;
 			doc.slots =
 				_.chain(doc.slots)
 				.map(slot => {
