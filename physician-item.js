@@ -110,9 +110,7 @@ window.addEventListener('DOMContentLoaded', function() {
 			card.querySelector('#physician-fee').innerText = doc.price.amount + '/h';
 			card.querySelector('#physician-specialty').innerText = doc.categories[0].name;
 			
-			console.log('>>>',  doc)
-			
-			if(doc && doc.managing_user && doc.managing_user.practitioner) {
+			if(doc && doc.managing_user && doc.managing_user.practitioner && doc.managing_user.practitioner.image) {
 				card.querySelector('.image-cover').src = doc.managing_user.practitioner.image;
 			} else {
 			    	card.querySelector('.image-cover').src =
