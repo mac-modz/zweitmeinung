@@ -170,7 +170,7 @@ window.addEventListener('DOMContentLoaded', function() {
 					let btn = document.createElement("a")
 					let hourArr = item.hour.split(':')
 					btn.innerHTML = `<div class="text_size-medium">${hourArr[0]}:${hourArr[1]}</div>`
-					btn.classList.add('test-slots_hour')
+					btn.classList.add('slots_hour')
 					btn.classList.add('w-inline-block')
 					if (item.status === 'FREE') {
 						btn.classList.add('slot-active')
@@ -231,7 +231,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	}
 
 	function changeContainerHeight(slideContainer, slider) {
-		const itemHeight = slideContainer.querySelector('.test-slots_hour').clientHeight;
+		const itemHeight = slideContainer.querySelector('.slots_hour').clientHeight;
 		const defaultContainerHeight = itemHeight > 50 ? '290px' : '260px';
 		if (!slideContainer.classList.contains('hideContent')) {
 			const itemsCount = getItemsCount(slider);
