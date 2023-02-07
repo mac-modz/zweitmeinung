@@ -105,7 +105,6 @@ window.addEventListener("DOMContentLoaded", function() {
             card.querySelector(".image-cover").src = "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80";
             const isBioBtn = card.querySelector('.button.is-bio');
             isBioBtn.style.display = 'none';
-
             if (doc && doc.managing_user && doc.managing_user.practitioner) {
                 if (doc.managing_user.practitioner.image) {
                     card.querySelector(".image-cover").src = doc.managing_user.practitioner.image.file
@@ -116,15 +115,14 @@ window.addEventListener("DOMContentLoaded", function() {
                     isBioBtn.addEventListener('click', (event) => {
                         const bioModal = document.querySelector('.modal_component.is-bio')
                         const bioModalContainer = bioModal.querySelector('.modal_container.is-bio');
-                        bioModal.style.display = 'flex';
-                        bioModal.style.opacity = '1';
-                        bioModalContainer.style.opacity = '1';
-
+                        bioModal.classList.add("modal_component-show");
+                        bioModalContainer.classList.add("modal_container-show");
                         const bioText = document.getElementById('modal-bio-text');
                         bioText.innerText = doc.managing_user.practitioner.description || 'Keine info'
                     })
                 }
             }
+
             doc.slots = _.chain(doc.slots).map(slot => {
                 const split = slot.date_from.split("T");
                 slot.date = split[0];
@@ -144,8 +142,9 @@ window.addEventListener("DOMContentLoaded", function() {
             slidePage.style.display = "flex";
             let dayCounter = 0;
             let slidePageClone = slidePage.cloneNode(true);
+            const columnCount = window.innerWidth > 479 ? 4 : 3;
             doc.slots.forEach((slot, index) => {
-                if (dayCounter >= 4) {
+                if (dayCounter >= columnCount) {
                     slideContainer.append(slidePageClone);
                     slidePageClone = slidePage.cloneNode(true);
                     dayCounter = 0
@@ -168,20 +167,13 @@ window.addEventListener("DOMContentLoaded", function() {
                     btn.classList.add("w-inline-block");
                     if (item.status === "FREE") {
                         btn.classList.add("slot-active");
-                        btn.setAttribute("data-link", `https://app-staging.medrefer.de/b/sec/book/${item.key}`);
+                        const form = document.querySelector('form.modal_transfer_form')
+                        form.setAttribute("data-link", `https://app-staging.medrefer.de/b/sec/book/${item.key}`);
                         const transferModal = document.querySelector('.modal_component.is-transfer')
                         const transferModalContainer = transferModal.querySelector('.modal_container.is-transfer');
-                        transferModal.style.display = 'none';
-                        transferModal.style.opacity = '0';
                         btn.addEventListener('click', (event) => {
-                            transferModal.style.display = 'flex';
-                            transferModal.style.opacity = '1';
-                            transferModalContainer.style.opacity = '1';
-                            const linkBtn = document.getElementById('transfer-link-btn');
-                            linkBtn.addEventListener("click", () => {
-                                const linkURL = event.target.getAttribute('data-link') || event.target.parentElement.getAttribute('data-link')
-                                window.location.href = linkURL;
-                            });
+                            transferModal.classList.add("modal_component-show");
+                            transferModalContainer.classList.add("modal_container-show");
                         })
                     } else {
                         btn.classList.add("slot-inactive")
