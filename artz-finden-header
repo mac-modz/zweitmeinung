@@ -1,0 +1,119 @@
+<style>
+  .physicians-list {
+		/*padding: 40px 0;*/
+	}
+  .physicians-item {
+    width: 100%;
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 8px 0;
+    margin-bottom: 20px
+  }
+  .visually-hidden {
+    display: none;
+  }
+  .hideContent {
+    overflow: hidden;
+	}
+  .tns-controls {
+  	position: relative;
+    width: 100%;
+  }
+  .tns-ovh {
+    margin-left: 30px
+  }
+  .tns-outer {
+    width: 100%;
+  }
+  .show-more {
+  	color: #3333e1;
+    width: 100%;
+    background: transparent;
+  }
+  [data-controls] {
+    background: transparent;
+    padding: 0;
+  }
+  [data-controls="prev"] {
+    position: absolute;
+    margin-top: 16px;
+  }
+  [data-controls="next"] {
+    float: right;
+    margin-top: 16px;
+  }
+  .slots_day-hours {
+	  padding: 0 6px;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .slot-inactive {
+  	padding: 8px;
+	  font-weight: 400;
+    font-size: 18px;
+    text-decoration-line: line-through;
+    color: #637A8B;
+    cursor: not-allowed;
+  }
+  .slot-active {
+  	background: rgba(51, 51, 225, 0.08) !important;
+  }
+  .modal_component {
+		display: block;
+    height: 0px;
+    opacity: 0;
+    padding: 0;
+  }
+  .modal_component-show {
+  	display: flex;
+    height: 100%;
+    opacity: 1;
+    padding: 2.5rem;
+  }
+  .modal_container {
+  	transition: opacity .5s; 
+    display: block;
+    height: 0px;
+    opacity: 0;
+  }
+  .modal_container-show {
+  	display: flex;
+    height: 100%;
+    opacity: 1;
+  }
+  @media only screen and (max-width: 479px) {
+    .modal_component {
+      padding: 0;
+    }
+  }
+ </style>
+ <script>
+ 	window.onload = function () {
+   	const modalCloseBtn = document.querySelectorAll('.action_btn-close');
+    const transferModal = document.querySelector('.modal_component.is-transfer')
+		const transferModalContainer = transferModal.querySelector('.modal_container.is-transfer');
+    const bioModal = document.querySelector('.modal_component.is-bio')
+    const bioModalContainer = bioModal.querySelector('.modal_container.is-bio');
+
+    modalCloseBtn.forEach((button) => {
+      button.addEventListener('click', () => {
+        transferModal.classList.remove("modal_component-show");
+        transferModalContainer.classList.remove("modal_container-show");
+        bioModal.classList.remove("modal_component-show");
+        bioModalContainer.classList.remove("modal_container-show");
+    });
+    
+    const form = document.querySelector('form.modal_transfer_form')
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+      const linkURL = event.target.getAttribute('data-link')
+			window.location.href=linkURL;
+    }, false)
+});
+  }
+ </script>
